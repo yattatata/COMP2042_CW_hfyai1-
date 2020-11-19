@@ -7,15 +7,16 @@ public class Digit extends Actor{
 	Image im1;
 	@Override
 	public void act(long now) {
-		// TODO Auto-generated method stub
 		
 	}
 	
 	public Digit(int n, int dim, int x, int y) {
-		im1 = new Image("file:src/p4_group_8_repo/"+n+".png", dim, dim, true, true);
+		im1 = new Image("file:src/images/"+n+".png", dim, dim, true, true);
 		setImage(im1);
-		setX(x);
-		setY(y);
+		setX(x+210);
+		setY(y-15);
+		
+		
 	}
 	
 }
