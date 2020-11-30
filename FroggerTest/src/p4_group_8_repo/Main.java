@@ -29,7 +29,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		main_scene = new MyStage(); //new object
-		Scene mainscene = new Scene(main_scene,600,800);
+		Scene mainscene = new Scene(main_scene,600,900);
 		menu mm = new menu();
 		main_scene.add(mm);
 		primaryStage.setScene(mainscene);

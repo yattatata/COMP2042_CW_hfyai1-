@@ -38,7 +38,7 @@ public class MyStage extends World{
 					stopMusic();			
 				else 
 					playMusic();
-		}
+			}
 		}
 	});
 }
