@@ -8,8 +8,7 @@ public class BackgroundImage extends Actor{
 	public void act(long now) {}
 	
 	public BackgroundImage(String imageLink) {
-		setImage(new Image(imageLink, 600, 900, true, true));
-		
+		setImage(new Image(imageLink, 600, 900, true, true));	
 	}
 
 }

@@ -37,7 +37,7 @@ public class Animal extends Actor {
 		
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
 		setX(300);
-		setY(679.8+movement);
+		setY(725+movement);
 		
 		imgW1 = new Image("file:src/images/froggerUp.png", imgSize, imgSize, true, true);
 		imgA1 = new Image("file:src/images/froggerLeft.png", imgSize, imgSize, true, true);
@@ -55,44 +55,44 @@ public class Animal extends Actor {
 				
 				else {
 				if (second) {
-					if (event.getCode() == KeyCode.W) {	  
+					if (event.getCode() == KeyCode.W||event.getCode() == KeyCode.UP) {	  
 		                move(0, -movement);
 		                changeScore = false;
 		                setImage(imgW1);
 		                second = false;
 		            }
-		            else if (event.getCode() == KeyCode.A) {	            	
+		            else if (event.getCode() == KeyCode.A||event.getCode() == KeyCode.LEFT) {	            	
 		            	 move(-movementX, 0);
 		            	 setImage(imgA1);
 		            	 second = false;
 		            }
-		            else if (event.getCode() == KeyCode.S) {	            	
+		            else if (event.getCode() == KeyCode.S||event.getCode() == KeyCode.DOWN) {	            	
 		            	 move(0, movement);
 		            	 setImage(imgS1);
 		            	 second = false;
 		            }
-		            else if (event.getCode() == KeyCode.D) {	            	
+		            else if (event.getCode() == KeyCode.D||event.getCode() == KeyCode.RIGHT) {	            	
 		            	 move(movementX, 0);
 		            	 setImage(imgD1);
 		            	 second = false;
 		            }
 				}
-				else if (event.getCode() == KeyCode.W) {	            	
+				else if (event.getCode() == KeyCode.W||event.getCode() == KeyCode.UP) {	            	
 	                move(0, -movement);
 	                setImage(imgW2);
 	                second = true;
 	            }
-	            else if (event.getCode() == KeyCode.A) {	            	
+	            else if (event.getCode() == KeyCode.A||event.getCode() == KeyCode.LEFT) {	            	
 	            	 move(-movementX, 0);
 	            	 setImage(imgA2);
 	            	 second = true;
 	            }
-	            else if (event.getCode() == KeyCode.S) {	            	
+	            else if (event.getCode() == KeyCode.S||event.getCode() == KeyCode.DOWN) {	            	
 	            	 move(0, movement);
 	            	 setImage(imgS2);
 	            	 second = true;
 	            }
-	            else if (event.getCode() == KeyCode.D) {	            	
+	            else if (event.getCode() == KeyCode.D||event.getCode() == KeyCode.RIGHT) {	            	
 	            	 move(movementX, 0);
 	            	 setImage(imgD2);
 	            	 second = true;
@@ -142,7 +142,7 @@ public class Animal extends Actor {
 		int bounds = 0;
 		if (getY()<0 || getY()>734) {
 			setX(300);
-			setY(679.8+movement);
+			setY(725+movement);
 		}
 		if (getX()<0) {
 			move(movement*2, 0);
@@ -150,9 +150,9 @@ public class Animal extends Actor {
 		if (carDeath) {
 			noMove = true;
 			if ((now)% 11 ==0) {
-			//	for(carD=1; carD<5; carD++) {
+				/*for(carD=1; carD<4; carD++) {
 					setImage(new Image("file:src/images/cardeath"+carD+".png", imgSize, imgSize, true, true));
-				//}
+				}*/
 				carD++;
 			}
 			if (carD==1) {
@@ -169,7 +169,7 @@ public class Animal extends Actor {
 				//setX(300);
 				//setY(679.8+movement);
 				carDeath = false;
-				carD = 0;
+				//carD = 0;
 				setImage(new Image("file:src/images/froggerUp.png", imgSize, imgSize, true, true));
 				noMove = false;
 				if (points>50) {
@@ -201,7 +201,7 @@ public class Animal extends Actor {
 				//setX(300);
 				//setY(679.8+movement);
 				waterDeath = false;
-				carD = 0;
+				//carD = 0;
 				setImage(new Image("file:src/images/froggerUp.png", imgSize, imgSize, true, true));
 				noMove = false;
 				if (points>50) {
@@ -276,7 +276,9 @@ public class Animal extends Actor {
 	}
 	public void reset() {
 		setX(300);
-		setY(679.8+movement);
+		setY(725+movement);
+		//679.8
+		carD = 0;
 	}
 	
 

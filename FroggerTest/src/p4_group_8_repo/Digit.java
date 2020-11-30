@@ -13,8 +13,8 @@ public class Digit extends Actor{
 	public Digit(int n, int dim, int x, int y) {
 		im1 = new Image("file:src/images/"+n+".png", dim, dim, true, true);
 		setImage(im1);
-		setX(x+210);
-		setY(y-15);
+		setX(x);
+		setY(y);
 		
 		
 	}
