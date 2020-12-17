@@ -1,10 +1,7 @@
 package p4_group_8_repo;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputEvent;
-
 import java.util.ArrayList;
-
 
 public abstract class Actor extends ImageView{
 
@@ -33,10 +30,6 @@ public abstract class Actor extends ImageView{
             }
         }
         return someArray;
-    }
-    
-    public void manageInput(InputEvent e) {
-        
     }
 
     public <A extends Actor> A getOneIntersectingObject(java.lang.Class<A> cls) {

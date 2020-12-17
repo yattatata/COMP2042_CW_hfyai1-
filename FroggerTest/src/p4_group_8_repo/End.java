@@ -6,7 +6,6 @@ public class End extends Actor{
 	boolean activated = false;
 	@Override
 	public void act(long now) {
-
 	}
 	
 	public End(int x, int y) {

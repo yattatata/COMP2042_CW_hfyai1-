@@ -29,6 +29,8 @@ public class Animal extends Actor {
 	boolean waterDeath = false;
 	boolean stop = false;
 	boolean changeScore = false;
+	boolean loselives = true;
+	int lives = 4;
 	int carD = 0;
 	double w = 800;
 	ArrayList<End> inter = new ArrayList<End>();
@@ -36,8 +38,7 @@ public class Animal extends Actor {
 	public Animal(String imageLink) {
 		
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
-		setX(300);
-		setY(725+movement);
+		reset();
 		
 		imgW1 = new Image("file:src/images/froggerUp.png", imgSize, imgSize, true, true);
 		imgA1 = new Image("file:src/images/froggerLeft.png", imgSize, imgSize, true, true);
@@ -139,10 +140,10 @@ public class Animal extends Actor {
 	
 	@Override
 	public void act(long now) {
+		@SuppressWarnings("unused")
 		int bounds = 0;
 		if (getY()<0 || getY()>734) {
-			setX(300);
-			setY(725+movement);
+			reset();// reset method for simplicity
 		}
 		if (getX()<0) {
 			move(movement*2, 0);
@@ -150,9 +151,6 @@ public class Animal extends Actor {
 		if (carDeath) {
 			noMove = true;
 			if ((now)% 11 ==0) {
-				/*for(carD=1; carD<4; carD++) {
-					setImage(new Image("file:src/images/cardeath"+carD+".png", imgSize, imgSize, true, true));
-				}*/
 				carD++;
 			}
 			if (carD==1) {
@@ -165,11 +163,9 @@ public class Animal extends Actor {
 				setImage(new Image("file:src/images/cardeath3.png", imgSize, imgSize, true, true));
 			}
 			if (carD == 4) {
-				reset();
-				//setX(300);
-				//setY(679.8+movement);
+				reset();// reset method for simplicity
+				loselives = true;
 				carDeath = false;
-				//carD = 0;
 				setImage(new Image("file:src/images/froggerUp.png", imgSize, imgSize, true, true));
 				noMove = false;
 				if (points>50) {
@@ -197,11 +193,9 @@ public class Animal extends Actor {
 				setImage(new Image("file:src/images/waterdeath4.png", imgSize,imgSize , true, true));
 			}
 			if (carD == 5) {
-				reset();
-				//setX(300);
-				//setY(679.8+movement);
+				reset(); // reset method for simplicity
+				loselives = true;
 				waterDeath = false;
-				//carD = 0;
 				setImage(new Image("file:src/images/froggerUp.png", imgSize, imgSize, true, true));
 				noMove = false;
 				if (points>50) {
@@ -242,6 +236,7 @@ public class Animal extends Actor {
 			if (getIntersectingObjects(End.class).get(0).isActivated()) {
 				end--;
 				points-=50;
+				loselives = true;
 			}
 			points+=50;
 			changeScore = true;
@@ -249,13 +244,9 @@ public class Animal extends Actor {
 			getIntersectingObjects(End.class).get(0).setEnd();
 			end++;
 			reset();
-			//setX(300);
-			//setY(679.8+movement);
 		}
 		else if (getY()<413){
 			waterDeath = true;
-			//setX(300);
-			//setY(679.8+movement);
 		}
 	}
 	public boolean getStop() {
@@ -276,9 +267,19 @@ public class Animal extends Actor {
 	}
 	public void reset() {
 		setX(300);
-		setY(725+movement);
-		//679.8
+		setY(725+movement);		//x-coords = 679.8
 		carD = 0;
+	}
+	public boolean loselives() {
+		if(loselives) {
+			lives--;
+			loselives = false;
+			return true;
+		}
+		return false;
+	}
+	public int getlives() {
+		return lives;
 	}
 	
 

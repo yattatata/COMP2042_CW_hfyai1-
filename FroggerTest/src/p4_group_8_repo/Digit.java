@@ -6,8 +6,7 @@ public class Digit extends Actor{
 	int dim;
 	Image im1;
 	@Override
-	public void act(long now) {
-		
+	public void act(long now) {	
 	}
 	
 	public Digit(int n, int dim, int x, int y) {
@@ -15,8 +14,5 @@ public class Digit extends Actor{
 		setImage(im1);
 		setX(x);
 		setY(y);
-		
-		
-	}
-	
+	}	
 }

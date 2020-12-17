@@ -1,18 +1,11 @@
 package p4_group_8_repo;
 
-import java.io.File;
-import java.util.List;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -21,17 +14,18 @@ public class Main extends Application {
 	AnimationTimer timer;
 	MyStage background;
 	Animal animal;
-	MyStage main_scene; //declaring variable
+	//private Button helpButton;
+	//private String highscore=("");
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		main_scene = new MyStage(); //new object
+		MyStage main_scene = new MyStage(); 
 		Scene mainscene = new Scene(main_scene,600,900);
-		menu mm = new menu();
-		main_scene.add(mm);
+		Menu mainMenu = new Menu();
+		main_scene.add(mainMenu);
 		primaryStage.setScene(mainscene);
 		primaryStage.show();
 		primaryStage.setResizable(false);
@@ -40,16 +34,14 @@ public class Main extends Application {
 			public void handle (KeyEvent event) {
 				if(event.getCode() == KeyCode.SPACE) {
 					background = new MyStage();
-				    Scene scene  = new Scene(background,600,800);
+				    Scene scene  = new Scene(background,600,840);
 				    
 					//Obstacle obstacle = new Obstacle("file:src/p4_group_8_repo/truck1Right.png", 25, 25, 3);
 					//Obstacle obstacle1 = new Obstacle("file:src/p4_group_8_repo/truck2Right.png", 100, 100,2 );
 					//Obstacle obstacle2 = new Obstacle("file:src/p4_group_8_repo/truck1Right.png",0,  150, 1);
 
-					BackgroundImage froggerback = new BackgroundImage("file:src/images/BG_Img.png"); //Frogger background image
-				    
+					BackgroundImage froggerback = new BackgroundImage("file:src/images/BG_Img.png"); //frogger background image
 					background.add(froggerback);
-					
 					background.add(new Log("file:src/images/log3.png", 150, 0, 166, 0.75));
 					background.add(new Log("file:src/images/log3.png", 150, 220, 166, 0.75));
 					background.add(new Log("file:src/images/log3.png", 150, 440, 166, 0.75));
@@ -60,8 +52,7 @@ public class Main extends Application {
 					background.add(new Log("file:src/images/log3.png", 150, 50, 329, 0.75));
 					background.add(new Log("file:src/images/log3.png", 150, 270, 329, 0.75));
 					background.add(new Log("file:src/images/log3.png", 150, 490, 329, 0.75));
-					//background.add(new Log("file:src/p4_group_8_repo/log3.png", 150, 570, 329, 0.75));
-					
+					//background.add(new Log("file:src/p4_group_8_repo/log3.png", 150, 570, 329, 0.75));				
 					background.add(new Turtle(500, 376, -1, 130, 130));
 					background.add(new Turtle(300, 376, -1, 130, 130));
 					background.add(new WetTurtle(700, 376, -1, 130, 130));
@@ -112,14 +103,16 @@ public class Main extends Application {
 					background.start();
 					primaryStage.setScene(scene);
 					primaryStage.show();
-					primaryStage.setResizable(false);
+					primaryStage.setResizable(false); // prevents user from resizing the window
 					start();  
+				}
+				if (event.getCode() == KeyCode.I) {
+                    main_scene.add(new Help(1000));
 				}
 				}
 			});
 		}
-		
-	    
+		 
 	public void createTimer() {
         timer = new AnimationTimer() {
             @Override
@@ -135,12 +128,28 @@ public class Main extends Application {
             		Alert alert = new Alert(AlertType.INFORMATION);
             		alert.setTitle("You Have Won The Game!");
             		alert.setHeaderText("Your High Score: "+animal.getPoints()+"!");
-            		alert.setContentText("Highest Possible Score: 800");
+            		alert.setContentText("Highest Possible Score: 850");
             		alert.show();
+            	}
+            	if (animal.loselives()) {
+            		setLives(animal.getlives());
             	}
             }
         };
     }
+	public void setLives (int n) {
+		background.add(new Lives(n));
+		if (n==0) {
+			stop();
+			background.stop();
+			background.stopMusic();
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Game Over - Out Of Lives");
+    		alert.setHeaderText("Your Score is "+animal.getPoints()+"!");
+    		alert.setContentText("Highest Possible Score: 850");
+    		alert.show();
+		}
+	}
 	public void start() {
 		background.playMusic();
     	createTimer();
@@ -148,8 +157,24 @@ public class Main extends Application {
     }
 
     public void stop() {
-        timer.stop();
+    	{
+    		if (timer != null) {
+    			 timer.stop();
+    		}
+    	}
+       
     }
+   /* public String GetHighScore() {
+    	FileReader readFile;
+    	BufferedReader reader;
+    	try {
+			readFile = new FileReader("highscore.dat");
+			reader = new BufferedReader(readFile);
+		} 
+    	catch (FileNotFoundException e) {
+			return "";
+		}
+    }*/
     
     public void setNumber(int n) {
     	int shift = 0;
