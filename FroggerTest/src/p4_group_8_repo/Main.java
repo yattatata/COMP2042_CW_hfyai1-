@@ -1,5 +1,11 @@
 package p4_group_8_repo;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -14,8 +20,9 @@ public class Main extends Application {
 	AnimationTimer timer;
 	MyStage background;
 	Animal animal;
-	//private Button helpButton;
-	//private String highscore=("");
+	int compareScore;
+	int hiscore;
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -33,51 +40,26 @@ public class Main extends Application {
 		main_scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle (KeyEvent event) {
 				if(event.getCode() == KeyCode.SPACE) {
+					hiscore = currentHighscore();
 					background = new MyStage();
 				    Scene scene  = new Scene(background,600,840);
-				    
-					//Obstacle obstacle = new Obstacle("file:src/p4_group_8_repo/truck1Right.png", 25, 25, 3);
-					//Obstacle obstacle1 = new Obstacle("file:src/p4_group_8_repo/truck2Right.png", 100, 100,2 );
-					//Obstacle obstacle2 = new Obstacle("file:src/p4_group_8_repo/truck1Right.png",0,  150, 1);
 
 					BackgroundImage froggerback = new BackgroundImage("file:src/images/BG_Img.png"); //frogger background image
 					background.add(froggerback);
 					background.add(new Log("file:src/images/log3.png", 150, 0, 166, 0.75));
 					background.add(new Log("file:src/images/log3.png", 150, 220, 166, 0.75));
 					background.add(new Log("file:src/images/log3.png", 150, 440, 166, 0.75));
-					//background.add(new Log("file:src/p4_group_8_repo/log3.png", 150, 0, 166, 0.75));
 					background.add(new Log("file:src/images/logs.png", 300, 0, 276, -2));
 					background.add(new Log("file:src/images/logs.png", 300, 400, 276, -2));
-					//background.add(new Log("file:src/p4_group_8_repo/logs.png", 300, 800, 276, -2));
 					background.add(new Log("file:src/images/log3.png", 150, 50, 329, 0.75));
 					background.add(new Log("file:src/images/log3.png", 150, 270, 329, 0.75));
-					background.add(new Log("file:src/images/log3.png", 150, 490, 329, 0.75));
-					//background.add(new Log("file:src/p4_group_8_repo/log3.png", 150, 570, 329, 0.75));				
+					background.add(new Log("file:src/images/log3.png", 150, 490, 329, 0.75));				
 					background.add(new Turtle(500, 376, -1, 130, 130));
 					background.add(new Turtle(300, 376, -1, 130, 130));
 					background.add(new WetTurtle(700, 376, -1, 130, 130));
 					background.add(new WetTurtle(600, 217, -1, 130, 130));
 					background.add(new WetTurtle(400, 217, -1, 130, 130));
 					background.add(new WetTurtle(200, 217, -1, 130, 130));
-					//background.add(new Log("file:src/images/log2.png",150, 200, 100, 1));
-					//background.add(new Log("file:src/p4_group_8_repo/log2.png", 0, 100, 1));
-					//background.add(new Log("file:src/p4_group_8_repo/log2.png", 100, 120, -1));
-					//background.add(new Log("file:src/p4_group_8_repo/log2.png", 200, 120, -1));
-					//background.add(new Log("file:src/p4_group_8_repo/log2.png", 100, 140, 1));
-					//background.add(new Log("file:src/p4_group_8_repo/log2.png", 200, 140, 1));
-					//background.add(new Log("file:src/p4_group_8_repo/log2.png", 100, 160, -1));
-					//background.add(new Log("file:src/p4_group_8_repo/log2.png", 300, 160, -1));
-					//background.add(new Log("file:src/p4_group_8_repo/log2.png", 100, 180, 1));
-					//background.add(new Log("file:src/p4_group_8_repo/log2.png", 200, 180, 1));
-					//background.add(new Log("file:src/p4_group_8_repo/log2.png", 100, 200, -1));
-					//background.add(new Log("file:src/p4_group_8_repo/log2.png", 200, 200, -1));
-					//background.add(new Log("file:src/p4_group_8_repo/log2.png", 100, 220, 1));
-					//background.add(new Log("file:src/p4_group_8_repo/log2.png", 200, 220, 1));
-					//background.add(new Log("file:src/p4_group_8_repo/log2.png", 400, 220, 1));
-					//End end2 = new End();
-					//End end3 = new End();
-					//End end4 = new End();
-					//End end5 = new End();
 					background.add(new End(10,102));
 					background.add(new End(135,102));
 					background.add(new End(265,102));
@@ -97,9 +79,6 @@ public class Main extends Application {
 					background.add(new Obstacle("file:src/images/truck2Right.png", 500, 540, 1, 200, 200));
 					background.add(new Obstacle("file:src/images/car1Left.png", 500, 490, -5, 50, 50));
 					background.add(new Digit(0, 30, 570, 10));
-					//background.add(obstacle);
-					//background.add(obstacle1);
-					//background.add(obstacle2);
 					background.start();
 					primaryStage.setScene(scene);
 					primaryStage.show();
@@ -117,18 +96,26 @@ public class Main extends Application {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+            	
             	if (animal.changeScore()) {
             		setNumber(animal.getPoints());
             	}
             	if (animal.getStop()) {
+                	if (animal.getPoints() > hiscore) {
+                		try {
+    						writeScore(animal.getPoints());
+    					} catch (IOException e) {
+    						e.printStackTrace();
+    					}
+                	}
             		System.out.print("STOPP:");
             		background.stopMusic();
             		stop();
             		background.stop();
             		Alert alert = new Alert(AlertType.INFORMATION);
             		alert.setTitle("You Have Won The Game!");
-            		alert.setHeaderText("Your High Score: "+animal.getPoints()+"!");
-            		alert.setContentText("Highest Possible Score: 850");
+            		alert.setHeaderText("Your Score is "+animal.getPoints()+"!\nPrevious Highscore was"+hiscore);
+            		//alert.setContentText("Highest Possible Score: 850");
             		alert.show();
             	}
             	if (animal.loselives()) {
@@ -141,14 +128,22 @@ public class Main extends Application {
 		background.add(new Lives(n));
 		if (n==0) {
 			stop();
+			if (animal.getPoints() > hiscore) {
+	    		try {
+					writeScore(animal.getPoints());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	    	}
 			background.stop();
 			background.stopMusic();
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Game Over - Out Of Lives");
-    		alert.setHeaderText("Your Score is "+animal.getPoints()+"!");
-    		alert.setContentText("Highest Possible Score: 850");
+    		alert.setHeaderText("Your Score is "+animal.getPoints()+"!\nHighScore is "+hiscore);
+    		//alert.setContentText("Highest Possible Score: 850");
     		alert.show();
 		}
+		
 	}
 	public void start() {
 		background.playMusic();
@@ -161,20 +156,63 @@ public class Main extends Application {
     		if (timer != null) {
     			 timer.stop();
     		}
-    	}
-       
+    	}  
     }
-   /* public String GetHighScore() {
-    	FileReader readFile;
-    	BufferedReader reader;
-    	try {
-			readFile = new FileReader("highscore.dat");
-			reader = new BufferedReader(readFile);
-		} 
-    	catch (FileNotFoundException e) {
-			return "";
-		}
+    /*
+     * Writes New HighScore in scores.dat file
+     */
+    public void writeScore(int newScore) throws IOException {
+
+        File output = new File("C:\\Users\\yungi\\git\\COMP2042_CW_hfyai1-\\FroggerTest\\src\\p4_group_8_repo\\scores.dat");
+        FileWriter writer = new FileWriter(output);
+        PrintWriter printWriter = new PrintWriter(writer);
+
+        printWriter.printf("%d", newScore);
+        printWriter.close();
+    }
+
+   /* public void readScore() throws IOException {
+        int i, space = 0, power = 2;
+        try (FileReader hiscore = new FileReader("C:\\Users\\yungi\\git\\COMP2042_CW_hfyai1-\\FroggerTest\\src\\p4_group_8_repo\\scores.txt")) {
+            while ((i = hiscore.read()) != -1) {
+                int char2int = (char)i - '0';
+                background.add(new Digit(char2int, 130 - space, 30, 25));
+                space-=20;
+                compareScore += (Math.pow(10, power)) * char2int;
+                power--;
+            }
+        }
+        catch(IOException e) {
+            System.out.println("no file");
+        }
     }*/
+    /*
+     * Reads Previous HighScore
+     */
+    public int currentHighscore() { 
+    	FileReader readFile = null;
+    	BufferedReader reader = null;
+    	try
+    	{
+    		readFile = new FileReader("C:\\Users\\yungi\\git\\COMP2042_CW_hfyai1-\\FroggerTest\\src\\p4_group_8_repo\\scores.dat");
+    		reader = new BufferedReader(readFile);
+    		return Integer.parseInt(reader.readLine());
+    	}
+    	catch (Exception e)
+    	{
+    		return 0;
+    	}
+    	finally
+    	{
+    		try {
+    			if (reader != null)
+				reader.close();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+    	}
+    }
     
     public void setNumber(int n) {
     	int shift = 0;
