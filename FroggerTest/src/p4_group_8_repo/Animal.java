@@ -19,7 +19,7 @@ public class Animal extends Actor {
 	Image imgD2;
 	
 	int points = 0;
-	int end = 0;
+	int end = 1;
 	private boolean second = false;
 	boolean noMove = false;
 	double movement = 13.3333333*2;
@@ -30,8 +30,10 @@ public class Animal extends Actor {
 	boolean stop = false;
 	boolean changeScore = false;
 	boolean loselives = true;
-	boolean changeLives = true;  //LEVELS
-	boolean changeLevel = true;  //LEVELS
+	
+	boolean levelUp = true;
+	int levels = 6;
+	
 	int lives = 4;
 	int carD = 0;
 	double w = 800;
@@ -246,7 +248,7 @@ public class Animal extends Actor {
 			getIntersectingObjects(End.class).get(0).setEnd();
 			end++;
 			levelUp();				//LEVELS ------------------------
-			changeLevel = true;		//LEVELS ------------------------
+			levelUp = true;		//LEVELS ------------------------
 			reset();
 		}
 		else if (getY()<413){
@@ -254,7 +256,7 @@ public class Animal extends Actor {
 		}
 	}
 	public boolean getStop() {
-		return end==5;
+		return end==6;
 	}
 	
 	public int getPoints() {
@@ -271,14 +273,17 @@ public class Animal extends Actor {
 	}
 	 //LEVELS------------------------------------------------
 	public boolean levelUp() { 
-		if (changeLevel) {
-			System.out.println("Level Changed");
-			changeLevel = false;
-			//return true;
+		if (levelUp) {
+			System.out.println("Level Up!");
+			levelUp = false;
+			return true;
 		}
 		return false;
 	}
-	//--------------------------------------------------------------------------------------
+	public int getLevels() {
+		return end;
+	}
+	//LEVELS--------------------------------------------------------------------------------------
 	public void reset() {
 		setX(300);
 		setY(725+movement);
