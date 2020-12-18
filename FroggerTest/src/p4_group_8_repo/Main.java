@@ -21,7 +21,7 @@ public class Main extends Application {
 	MyStage background;
 	Animal animal;
 	int compareScore;
-	int hiscore;
+	int hiScore;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -40,9 +40,9 @@ public class Main extends Application {
 		main_scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle (KeyEvent event) {
 				if(event.getCode() == KeyCode.SPACE) {
-					hiscore = currentHighscore();
+					hiScore = currentHighscore();
 					background = new MyStage();
-				    Scene scene  = new Scene(background,600,840);
+				    Scene scene  = new Scene(background,600,848);
 
 					BackgroundImage froggerback = new BackgroundImage("file:src/images/BG_Img.png"); //frogger background image
 					background.add(froggerback);
@@ -82,11 +82,11 @@ public class Main extends Application {
 					background.start();
 					primaryStage.setScene(scene);
 					primaryStage.show();
-					primaryStage.setResizable(false); // prevents user from resizing the window
+					primaryStage.setResizable(false);
 					start();  
 				}
 				if (event.getCode() == KeyCode.I) {
-                    main_scene.add(new Help(1000));
+                    main_scene.add(new Info(1000));
 				}
 				}
 			});
@@ -100,10 +100,13 @@ public class Main extends Application {
             	if (animal.changeScore()) {
             		setNumber(animal.getPoints());
             	}
+            	if (animal.loselives()) {
+            		setLives(animal.getlives());
+            	}
             	if (animal.getStop()) {
-                	if (animal.getPoints() > hiscore) {
+                	if (animal.getPoints() > hiScore) {
                 		try {
-    						writeScore(animal.getPoints());
+    						writeHiScore(animal.getPoints());
     					} catch (IOException e) {
     						e.printStackTrace();
     					}
@@ -114,13 +117,10 @@ public class Main extends Application {
             		background.stop();
             		Alert alert = new Alert(AlertType.INFORMATION);
             		alert.setTitle("You Have Won The Game!");
-            		alert.setHeaderText("Your Score is "+animal.getPoints()+"!\nPrevious Highscore was"+hiscore);
-            		//alert.setContentText("Highest Possible Score: 850");
+            		alert.setHeaderText("Your Score is "+animal.getPoints()+"!\nPrevious Highscore was"+hiScore);
             		alert.show();
             	}
-            	if (animal.loselives()) {
-            		setLives(animal.getlives());
-            	}
+
             }
         };
     }
@@ -128,9 +128,9 @@ public class Main extends Application {
 		background.add(new Lives(n));
 		if (n==0) {
 			stop();
-			if (animal.getPoints() > hiscore) {
+			if (animal.getPoints() > hiScore) {
 	    		try {
-					writeScore(animal.getPoints());
+					writeHiScore(animal.getPoints());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -139,8 +139,7 @@ public class Main extends Application {
 			background.stopMusic();
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Game Over - Out Of Lives");
-    		alert.setHeaderText("Your Score is "+animal.getPoints()+"!\nHighScore is "+hiscore);
-    		//alert.setContentText("Highest Possible Score: 850");
+    		alert.setHeaderText("Your Score is "+animal.getPoints()+"!\nHighScore is "+hiScore);
     		alert.show();
 		}
 		
@@ -159,15 +158,15 @@ public class Main extends Application {
     	}  
     }
     /*
-     * Writes New HighScore in scores.dat file
+     * Writes New HighScore in data file
      */
-    public void writeScore(int newScore) throws IOException {
+    public void writeHiScore(int newHiScore) throws IOException {
 
-        File output = new File("C:\\Users\\yungi\\git\\COMP2042_CW_hfyai1-\\FroggerTest\\src\\p4_group_8_repo\\scores.dat");
+        File output = new File("src/p4_group_8_repo/scores.dat");
         FileWriter writer = new FileWriter(output);
         PrintWriter printWriter = new PrintWriter(writer);
 
-        printWriter.printf("%d", newScore);
+        printWriter.printf("%d", newHiScore);
         printWriter.close();
     }
 
@@ -194,7 +193,7 @@ public class Main extends Application {
     	BufferedReader reader = null;
     	try
     	{
-    		readFile = new FileReader("C:\\Users\\yungi\\git\\COMP2042_CW_hfyai1-\\FroggerTest\\src\\p4_group_8_repo\\scores.dat");
+    		readFile = new FileReader("src/p4_group_8_repo/scores.dat");
     		reader = new BufferedReader(readFile);
     		return Integer.parseInt(reader.readLine());
     	}
@@ -225,3 +224,4 @@ public class Main extends Application {
     		}
     }
 }
+

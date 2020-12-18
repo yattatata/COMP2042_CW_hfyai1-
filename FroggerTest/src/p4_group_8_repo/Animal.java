@@ -30,6 +30,8 @@ public class Animal extends Actor {
 	boolean stop = false;
 	boolean changeScore = false;
 	boolean loselives = true;
+	boolean changeLives = true;  //LEVELS
+	boolean changeLevel = true;  //LEVELS
 	int lives = 4;
 	int carD = 0;
 	double w = 800;
@@ -143,7 +145,7 @@ public class Animal extends Actor {
 		@SuppressWarnings("unused")
 		int bounds = 0;
 		if (getY()<0 || getY()>734) {
-			reset();// reset method for simplicity
+			reset();
 		}
 		if (getX()<0) {
 			move(movement*2, 0);
@@ -163,7 +165,7 @@ public class Animal extends Actor {
 				setImage(new Image("file:src/images/cardeath3.png", imgSize, imgSize, true, true));
 			}
 			if (carD == 4) {
-				reset();// reset method for simplicity
+				reset();
 				loselives = true;
 				carDeath = false;
 				setImage(new Image("file:src/images/froggerUp.png", imgSize, imgSize, true, true));
@@ -193,7 +195,7 @@ public class Animal extends Actor {
 				setImage(new Image("file:src/images/waterdeath4.png", imgSize,imgSize , true, true));
 			}
 			if (carD == 5) {
-				reset(); // reset method for simplicity
+				reset();
 				loselives = true;
 				waterDeath = false;
 				setImage(new Image("file:src/images/froggerUp.png", imgSize, imgSize, true, true));
@@ -243,6 +245,8 @@ public class Animal extends Actor {
 			w=800;
 			getIntersectingObjects(End.class).get(0).setEnd();
 			end++;
+			levelUp();				//LEVELS ------------------------
+			changeLevel = true;		//LEVELS ------------------------
 			reset();
 		}
 		else if (getY()<413){
@@ -265,9 +269,19 @@ public class Animal extends Actor {
 		return false;
 		
 	}
+	 //LEVELS------------------------------------------------
+	public boolean levelUp() { 
+		if (changeLevel) {
+			System.out.println("Level Changed");
+			changeLevel = false;
+			//return true;
+		}
+		return false;
+	}
+	//--------------------------------------------------------------------------------------
 	public void reset() {
 		setX(300);
-		setY(725+movement);		//x-coords = 679.8
+		setY(725+movement);
 		carD = 0;
 	}
 	public boolean loselives() {

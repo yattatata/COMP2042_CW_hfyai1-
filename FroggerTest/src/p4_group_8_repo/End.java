@@ -23,5 +23,4 @@ public class End extends Actor{
 		return activated;
 	}
 	
-
 }
