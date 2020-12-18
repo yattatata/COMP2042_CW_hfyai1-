@@ -12,11 +12,20 @@ the game also gets progressively harder with the increase in speed and number of
 the game ends also. The users score is displayed and the previous highscore from older sessions is also displayed. If the player dies 3 times,
 the highscore is also displayed.
 
+Refactored code to make it more easier to read and understand.
+
 2. Additions
- - Level System - increments as each frog reaches the end
+ - Level System - increments as each frog reaches the end. level is displayed whila player is playing the game
  - Highscore System - keep tracks of the Highest Score
  - Player Lives - player given 3 lives
  - Mute Button - 'M' to mute/unmute
  - Info Screen - press 'I' in main menu to view info screen
  - Main Menu - first scene shown when code is running
  - Customized pictures for better quality of life - better aesthetic
+
+3. JUnit Test
+- 4 JUnit tests were done
+
+
+
+

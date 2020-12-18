@@ -271,19 +271,19 @@ public class Animal extends Actor {
 		return false;
 		
 	}
-	 //LEVELS------------------------------------------------
+
 	public boolean levelUp() { 
 		if (levelUp) {
-			System.out.println("Level Up!");
 			levelUp = false;
 			return true;
 		}
 		return false;
 	}
+	
 	public int getLevels() {
 		return end;
 	}
-	//LEVELS--------------------------------------------------------------------------------------
+	
 	public void reset() {
 		setX(300);
 		setY(725+movement);

@@ -3,7 +3,6 @@ package p4_group_8_repo;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,7 +11,11 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-
+/**
+ * 
+ * @author Ahmad Nabil
+ *
+ */
 public abstract class World extends Pane {
     private AnimationTimer timer;
     

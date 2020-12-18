@@ -17,6 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
+ * @author Ahmad Nabil
  * This is the main method.
  * @param args Unused.
  * @return Nothing.
@@ -149,21 +150,17 @@ public class Main extends Application {
             		System.out.println(levels);
             		switch(levels) {
             		case 2:
-            			System.out.println("level 2");
             			levelTwo();
             			break;
             		case 3:
-            			System.out.println("level 3");
             			levelThree();
             			break;
             		
             		case 4:
-            			System.out.println("level 4");
             			levelFour();
             			break;
             			
             		case 5:
-            			System.out.println("level 5");
             			levelFive();
             			break;
             		}	
@@ -192,6 +189,9 @@ public class Main extends Application {
             }
         };
     }
+	/**
+	 * @param n This receives the current lives of player
+	 */
 	public void setLives (int n) {
 		background.add(new Lives(n));
 		if (n==0) {
@@ -227,7 +227,7 @@ public class Main extends Application {
     }
     
     public void levelTwo() {
-    	level_text.incre();
+    	level_text.increment();
     	background.remove(car21);
     	car21 = new Obstacle("file:src/images/car1Left.png", 500, 490, -3, 50, 50);
     	car22 = new Obstacle("file:src/images/car1Left.png", 300, 490, -3, 50, 50);
@@ -236,7 +236,7 @@ public class Main extends Application {
     }
     
     public void levelThree() {
-    	level_text.incre();
+    	level_text.increment();
     	background.remove(lorry11);
     	background.remove(lorry12);
     	background.remove(lorry13);
@@ -252,7 +252,7 @@ public class Main extends Application {
     }
     
     public void levelFour() {
-    	level_text.incre();
+    	level_text.increment();
     	background.remove(car21);
     	background.remove(car22);
     	car21 = new Obstacle("file:src/images/car1Left.png", 500, 490, -6, 50, 50);
@@ -262,7 +262,7 @@ public class Main extends Application {
     }
     
     public void levelFive() {
-    	level_text.incre();
+    	level_text.increment();
     	background.remove(lorry21);
     	background.remove(lorry22);
     	lorry21 = new Obstacle("file:src/images/truck2Right.png", 0, 540, 3, 200, 200);
@@ -272,8 +272,9 @@ public class Main extends Application {
     	
     }
     
-    /*
+    /**
      * Writes New HighScore in data file
+     * @param newHiScore First parameter added to writeHiScore
      */
     public void writeHiScore(int newHiScore) throws IOException {
 
@@ -284,7 +285,10 @@ public class Main extends Application {
         printWriter.printf("%d", newHiScore);
         printWriter.close();
     }
-
+    /**
+     * This method fetches the current highscore from score.dat file
+     * @return current Highscore
+     */
     public int currentHighscore() { 
     	FileReader readFile = null;
     	BufferedReader reader = null;
@@ -309,7 +313,9 @@ public class Main extends Application {
 			}
     	}
     }
-    
+    /**
+     * @param n This is the first parameter to setNumber method
+     */
     public void setNumber(int n) {
     	int shift = 0;
     	while (n > 0) {
