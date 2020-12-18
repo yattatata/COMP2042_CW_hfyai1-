@@ -6,7 +6,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-
 public class Animal extends Actor {
 	
 	Image imgW1;
@@ -30,6 +29,7 @@ public class Animal extends Actor {
 	boolean stop = false;
 	boolean changeScore = false;
 	boolean loselives = true;
+
 	
 	boolean levelUp = true;
 	int levels = 6;
@@ -300,6 +300,4 @@ public class Animal extends Actor {
 	public int getlives() {
 		return lives;
 	}
-	
-
 }

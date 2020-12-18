@@ -16,16 +16,24 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * This is the main method.
+ * @param args Unused.
+ * @return Nothing.
+ * @exception IOException.
+ * @see IOException
+ */
+
 public class Main extends Application {
 	AnimationTimer timer;
 	MyStage background;
 	Animal animal;
 	int compareScore;
 	int hiScore;
-	
 	Obstacle lorry11, lorry12, lorry13, lorry14, lorry21, lorry22;
 	Obstacle car11, car12, car13, car14, car21, car22;
-
+	Newlevel level_text; // --------------------------------
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -43,6 +51,7 @@ public class Main extends Application {
 		main_scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle (KeyEvent event) {
 				if(event.getCode() == KeyCode.SPACE) {
+
 					hiScore = currentHighscore();
 					background = new MyStage();
 				    Scene scene  = new Scene(background,600,848);
@@ -106,6 +115,8 @@ public class Main extends Application {
 					car21 = new Obstacle("file:src/images/car1Left.png", 500, 490, -1, 50, 50);
 					background.add(car21);
 					
+					level_text = new Newlevel(20, 427, 100);
+					background.add(level_text);
 					background.add(new Digit(0, 30, 570, 10));
 					background.start();
 					primaryStage.setScene(scene);
@@ -216,6 +227,7 @@ public class Main extends Application {
     }
     
     public void levelTwo() {
+    	level_text.incre();
     	background.remove(car21);
     	car21 = new Obstacle("file:src/images/car1Left.png", 500, 490, -3, 50, 50);
     	car22 = new Obstacle("file:src/images/car1Left.png", 300, 490, -3, 50, 50);
@@ -224,6 +236,7 @@ public class Main extends Application {
     }
     
     public void levelThree() {
+    	level_text.incre();
     	background.remove(lorry11);
     	background.remove(lorry12);
     	background.remove(lorry13);
@@ -239,6 +252,7 @@ public class Main extends Application {
     }
     
     public void levelFour() {
+    	level_text.incre();
     	background.remove(car21);
     	background.remove(car22);
     	car21 = new Obstacle("file:src/images/car1Left.png", 500, 490, -6, 50, 50);
@@ -248,6 +262,7 @@ public class Main extends Application {
     }
     
     public void levelFive() {
+    	level_text.incre();
     	background.remove(lorry21);
     	background.remove(lorry22);
     	lorry21 = new Obstacle("file:src/images/truck2Right.png", 0, 540, 3, 200, 200);
@@ -270,24 +285,6 @@ public class Main extends Application {
         printWriter.close();
     }
 
-   /* public void readScore() throws IOException {
-        int i, space = 0, power = 2;
-        try (FileReader hiscore = new FileReader("C:\\Users\\yungi\\git\\COMP2042_CW_hfyai1-\\FroggerTest\\src\\p4_group_8_repo\\scores.txt")) {
-            while ((i = hiscore.read()) != -1) {
-                int char2int = (char)i - '0';
-                background.add(new Digit(char2int, 130 - space, 30, 25));
-                space-=20;
-                compareScore += (Math.pow(10, power)) * char2int;
-                power--;
-            }
-        }
-        catch(IOException e) {
-            System.out.println("no file");
-        }
-    }*/
-    /*
-     * Reads Previous HighScore
-     */
     public int currentHighscore() { 
     	FileReader readFile = null;
     	BufferedReader reader = null;
@@ -323,5 +320,6 @@ public class Main extends Application {
     		  shift+=30;
     		}
     }
+
 }
 
