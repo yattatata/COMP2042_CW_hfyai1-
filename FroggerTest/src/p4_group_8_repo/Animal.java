@@ -5,7 +5,11 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
+/**
+ * 
+ * @author Ahmad Nabil
+ *
+ */
 public class Animal extends Actor {
 	
 	Image imgW1;
@@ -38,7 +42,10 @@ public class Animal extends Actor {
 	int carD = 0;
 	double w = 800;
 	ArrayList<End> inter = new ArrayList<End>();
-	
+	/**
+	 * 
+	 * @param imageLink parameter receives imagelink to Animal method
+	 */
 	public Animal(String imageLink) {
 		
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
@@ -255,14 +262,24 @@ public class Animal extends Actor {
 			waterDeath = true;
 		}
 	}
+	/**
+	 * 
+	 * @return checks if player has finished game
+	 */
 	public boolean getStop() {
 		return end==6;
 	}
-	
+	/**
+	 * 
+	 * @return returns points value
+	 */
 	public int getPoints() {
 		return points;
 	}
-	
+	/**
+	 * 
+	 * @return returns boolean
+	 */
 	public boolean changeScore() {
 		if (changeScore) {
 			changeScore = false;
@@ -271,7 +288,10 @@ public class Animal extends Actor {
 		return false;
 		
 	}
-
+	/**
+	 * 
+	 * @return returns boolean
+	 */
 	public boolean levelUp() { 
 		if (levelUp) {
 			levelUp = false;
@@ -279,16 +299,25 @@ public class Animal extends Actor {
 		}
 		return false;
 	}
-	
+	/**
+	 * 
+	 * @return get current level value
+	 */
 	public int getLevels() {
 		return end;
 	}
-	
+	/**
+	 * resets frog starting location
+	 */
 	public void reset() {
 		setX(300);
 		setY(725+movement);
 		carD = 0;
 	}
+	/**
+	 * 
+	 * @return returns a boolean 
+	 */
 	public boolean loselives() {
 		if(loselives) {
 			lives--;
@@ -297,6 +326,10 @@ public class Animal extends Actor {
 		}
 		return false;
 	}
+	/**
+	 * 
+	 * @return returns lives value
+	 */
 	public int getlives() {
 		return lives;
 	}

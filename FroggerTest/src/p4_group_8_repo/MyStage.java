@@ -18,7 +18,9 @@ public class MyStage extends World{
 	@Override
 	public void act(long now) {
 	}
-	
+	/**
+	 * MyStage constructor
+	 */
 	public MyStage() {
 	
 	setOnKeyPressed(new EventHandler<KeyEvent>() {

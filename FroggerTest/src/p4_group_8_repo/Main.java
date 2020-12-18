@@ -17,12 +17,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
+ * 
  * @author Ahmad Nabil
- * This is the main method.
- * @param args Unused.
- * @return Nothing.
- * @exception IOException.
- * @see IOException
+ *
  */
 
 public class Main extends Application {
@@ -34,7 +31,10 @@ public class Main extends Application {
 	Obstacle lorry11, lorry12, lorry13, lorry14, lorry21, lorry22;
 	Obstacle car11, car12, car13, car14, car21, car22;
 	Newlevel level_text; // --------------------------------
-	
+	/**
+	 * This is the main method
+	 * @param args a string array
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -136,7 +136,9 @@ public class Main extends Application {
 				}
 			});
 		}
-		 
+		 /**
+		  * createTimer Method
+		  */
 	public void createTimer() {
         timer = new AnimationTimer() {
             @Override
@@ -212,6 +214,9 @@ public class Main extends Application {
 		}
 		
 	}
+	/**
+	 * start Method
+	 */
 	public void start() {
 		background.playMusic();
     	createTimer();
@@ -225,7 +230,9 @@ public class Main extends Application {
     		}
     	}  
     }
-    
+    /**
+     * levelTwo Method
+     */
     public void levelTwo() {
     	level_text.increment();
     	background.remove(car21);
@@ -234,7 +241,9 @@ public class Main extends Application {
     	background.add(car21);
     	background.add(car22);
     }
-    
+    /**
+     * levelThree Method
+     */
     public void levelThree() {
     	level_text.increment();
     	background.remove(lorry11);
@@ -250,7 +259,9 @@ public class Main extends Application {
     	background.add(lorry13);
     	background.add(lorry14);	
     }
-    
+    /**
+     * levelFour Method
+     */
     public void levelFour() {
     	level_text.increment();
     	background.remove(car21);
@@ -260,7 +271,9 @@ public class Main extends Application {
     	background.add(car21);
     	background.add(car22);
     }
-    
+    /**
+     * levelFive Method
+     */
     public void levelFive() {
     	level_text.increment();
     	background.remove(lorry21);
@@ -275,6 +288,7 @@ public class Main extends Application {
     /**
      * Writes New HighScore in data file
      * @param newHiScore First parameter added to writeHiScore
+     * @throws IOException throws exception
      */
     public void writeHiScore(int newHiScore) throws IOException {
 

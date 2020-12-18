@@ -36,7 +36,7 @@ public class Log extends Actor {
 	}
 	/**
 	 * 
-	 * @return returns a boolean true if speed <0
+	 * @return returns a boolean true if speed less than 0
 	 */
 	public boolean getLeft() {
 		return speed < 0;

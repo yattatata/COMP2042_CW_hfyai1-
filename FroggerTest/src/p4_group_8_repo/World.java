@@ -18,7 +18,9 @@ import javafx.scene.layout.Pane;
  */
 public abstract class World extends Pane {
     private AnimationTimer timer;
-    
+    /**
+     * World
+     */
     public World() {
     	
     	sceneProperty().addListener(new ChangeListener<Scene>() {
@@ -63,7 +65,9 @@ public abstract class World extends Pane {
     		
 		});
     }
-
+/**
+ * createTimer method
+ */
     public void createTimer() {
         timer = new AnimationTimer() {
             @Override
@@ -78,25 +82,41 @@ public abstract class World extends Pane {
             }
         };
     }
-
+/**
+ * start method
+ */
     public void start() {
     	createTimer();
         timer.start();
     }
-
+/**
+ * stop method
+ */
     public void stop() {
         timer.stop();
     }
-    
+    /**
+     * 
+     * @param actor first parameter for add method
+     */
     public void add(Actor actor) {
         getChildren().add(actor);
     }
-
+/**
+ * 
+ * @param actor first parameter for remove method
+ */
     public void remove(Actor actor) {
         getChildren().remove(actor);
     }
 
     @SuppressWarnings("unchecked")
+    /**
+     * 
+     * @param <A> first parameter
+     * @param cls second parameter
+     * @return return somearray
+     */
 	public <A extends Actor> List<A> getObjects(Class<A> cls) {
         ArrayList<A> someArray = new ArrayList<A>();
         for (Node n: getChildren()) {
@@ -106,6 +126,9 @@ public abstract class World extends Pane {
         }
         return someArray;
     }
-
+/**
+ * 
+ * @param now first parameter to act method
+ */
     public abstract void act(long now);
 }
